@@ -21,12 +21,12 @@ CREATE TABLE players(
 ); 
 
 CREATE TABLE scores(
-   date        DATETIME       NOT NULL,  -- YYYY-MM-DD HH:MI:SS
+   date        DATETIME       NOT NULL,  -- YYYY-MM-DD HH:MI:SS PM
    playerID    INT            NOT NULL,
-   apiKey      INT            NOT NULL,
+   apiKey      CHAR(16)       NOT NULL,
    score       FLOAT          NOT NULL,
    PRIMARY KEY (date, playerID),
-   CONSTRAINT fk_apiKey FOREIGN KEY (apiKey) REFERENCES games(gameID),
+   CONSTRAINT fk_apiKey FOREIGN KEY (apiKey) REFERENCES apiKeys(apiKey),
    CONSTRAINT fk_playerID FOREIGN KEY (playerID) REFERENCES players(playerID)
 );
 
@@ -36,30 +36,9 @@ VALUES ("johnny@scottmail.ca", "ilovescatman");
 INSERT INTO apiKeys(userID, apiKey, domain)
 VALUES (1, "0123456789abcdef", "https://www.sean-green-cst.com/");
 
-INSERT INTO player(playerName)
+INSERT INTO players(playerName)
 VALUES ("speed jesus");
 
 INSERT INTO scores(date, playerID, apiKey, score)
 VALUES('19891024 09:22:32 AM', 1, "0123456789abcdef", 987654321);
  
--- INSERT INTO players(playerID, playerName) 
--- VALUES(666, "DEVILMAN");
-
-
--- INSERT INTO scores(gameID, playerID, score, date)
--- VALUES(123, 666, 83746527, '19991024 10:22:32 AM');
-
--- -- GET player with the highest score in a given game
--- SELECT playerName, MAX(score) AS score
--- FROM players NATURAL JOIN scores
-
--- -- GET all names and scores for a given game in descending order of score
--- SELECT playerName, score, date
--- FROM players NATURAL JOIN scores
--- WHERE gameID = 123
--- ORDER BY score DESC;
-
--- -- GET all player names
--- SELECT playerName 
--- FROM players
--- ORDER BY playerName DESC;
