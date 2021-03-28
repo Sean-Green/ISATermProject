@@ -1,4 +1,7 @@
 -- Create DB
+CREATE TABLE apiKeys(
+   
+)
 
 CREATE TABLE games(
    gameID      INT            NOT NULL, 
