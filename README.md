@@ -4,12 +4,36 @@
 
 ## Operations
 
+### POST Operations 
+
+## /signup 
+Create new User entry and login
+
+## /login 
+Authorize login
+
+## /generate 
+Create new API Key
+
+## /score 
+Create new entry in score table
+
+### DELETE Operations 
+
+## /deleteAll 
+Delete an api key and all scores associated with it
+
+## /deleteScore 
+delete a single entry from the score table
+
+### PUT Operations 
+
+## /updateDomain 
+update the domain name at the given api key
+
+## /updateEmail
+update the users login email
+
 ### GET Operation
 
-## /apikey
-
-### POST Operations
-
-## /createGame
-
-## /
+## /scores?key=<apikey>
