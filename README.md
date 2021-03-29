@@ -36,5 +36,5 @@ update the users login email
 
 ### GET Operation
 
-## /scores?key=<apikey>
+## /scores?key=
 get a list of scores stored with the apikey you provide
