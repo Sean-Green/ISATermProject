@@ -29,7 +29,7 @@ VALUES ("johnny@scottmail.ca", "ilovescatman");
 INSERT INTO apiKeys(userID, apiKey, domain)
 VALUES (1, "0123456789abcdef", "http://localhost:3000/");
 
-INSERT INTO scores(date, playerName, apiKey, score)
-VALUES('19891024 09:22:32 AM', 'speedJesus', "0123456789abcdef", 987654321);
+INSERT INTO scores(scoreDate, playerName, apiKey, score)
+VALUES('1989-10-24 09:22:32 AM', 'speedJesus', "0123456789abcdef", 987654321);
  
 -- http://localhost:3000/scores?api=sean
