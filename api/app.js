@@ -2,12 +2,17 @@ const express = require('express');
 const app = express();
 const port = 3000;
 
+// app.use((req, res, next) => {
+//     res.header('Access-Control-Allow-Origin', '*');
+//     next();
+// });
+
 var mysql = require('mysql');
 var connection = mysql.createConnection({
     host: 'localhost',
-    database: 'arcadedb',
-    user: 'admin',
-    password: 'admin'
+    database: 'seangree_arcadeChampions',
+    user: 'seangree_arcadeAdmin',
+    password: 'arcadeAdmin'
 });
 
 // Establish connection to local database
@@ -16,15 +21,46 @@ connection.connect(function (err) {
         console.error('error connecting: ' + err.stack);
         return;
     }
-
     console.log('connected as id ' + connection.threadId);
 });
 
+app.post('/quarterKings/v1/signup',  (req, res)=>{  
+    res.header('Access-Control-Allow-Origin', '*');
+    req.on("data", (data) => {
+        let strdata = `${data}`;
+        let user = (JSON.parse(strdata));  
+        connection.query(
+            `INSERT INTO users(email, password)
+            VALUES ("${user.name}", "${user.password}");`, 
+            function (error, results, fields) {
+            if (error) {
+                // console.log(error);
+                console.log(`SQL Insert Failed: ${error.message}`);
+                res.status('400').send(`${error.message}`);
+                // throw error;
+            } else {
+                console.log("");
+                res.sendStatus(201).send('User Created');  
+            }
+        });          
+    });
+});
+
+app.post('/', function (req, res) {
+    res.header('Access-Control-Allow-Origin', '*');
+    res.send('Got a POST request')
+  })
+
+// Just a test route.
+app.get('/quarterKings/v1', (req, res)=>{
+    console.log('connected to route');
+    res.send("hello there");
+});
 
 // Get the score for the queried apiKey, 
 // if the key doesn't match the domain that sent the query 
 // or doesn't exist yet, send a 400 error.
-app.get('/scores', (req, res) => {
+app.get('/quarterKings/v1/scores', (req, res) => {
     console.log(`Request from api key = ${req.query.api} hostname = ${req.hostname}`);
     connection.query(
         `SELECT * 
@@ -35,16 +71,12 @@ app.get('/scores', (req, res) => {
             console.log("SQL DATABASE ERROR in /scores GET");
             res.status('500').send('Internal Server Error').send;
             // throw error;
-        } else if (results.length < 1) {
+        } else if (req.hostname === results[0].domain && req.query.api === results[0].apiKey) {
             // connected!
-            console.log('Success')
-            res.status('400').send("APIKEY not found");
-        }else if (req.hostname === results[0].domain && req.query.api === results[0].apiKey) {
-            // connected!
-            console.log('Success')
-            res.status('200').send({
-                scores: results
-            });
+            console.log('Success returning ')
+            res.status('200').send(
+                results
+            );
         } else {
             res.status('400').send('APIKey/Domain invalid');
         }
