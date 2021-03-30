@@ -1,6 +1,6 @@
 const express = require('express');
 const app = express();
-const port = 3000;
+const port = 3000; 
 
 // app.use((req, res, next) => {
 //     res.header('Access-Control-Allow-Origin', '*');
@@ -24,7 +24,10 @@ connection.connect(function (err) {
     console.log('connected as id ' + connection.threadId);
 });
 
+var signupHits = 0;
+
 app.post('/quarterKings/v1/signup',  (req, res)=>{  
+    signupHits++;
     res.header('Access-Control-Allow-Origin', '*');
     req.on("data", (data) => {
         let strdata = `${data}`;
@@ -46,21 +49,18 @@ app.post('/quarterKings/v1/signup',  (req, res)=>{
     });
 });
 
-app.post('/', function (req, res) {
-    res.header('Access-Control-Allow-Origin', '*');
-    res.send('Got a POST request')
-  })
-
 // Just a test route.
 app.get('/quarterKings/v1', (req, res)=>{
     console.log('connected to route');
     res.send("hello there");
 });
 
+var scoresHits = 0;
 // Get the score for the queried apiKey, 
 // if the key doesn't match the domain that sent the query 
 // or doesn't exist yet, send a 400 error.
 app.get('/quarterKings/v1/scores', (req, res) => {
+    scoresHits++;
     console.log(`Request from api key = ${req.query.api} hostname = ${req.hostname}`);
     connection.query(
         `SELECT * 
@@ -80,6 +80,13 @@ app.get('/quarterKings/v1/scores', (req, res) => {
         } else {
             res.status('400').send('APIKey/Domain invalid');
         }
+    });
+});
+
+app.get('/quarterKings/v1/stats', (req, res)=>{
+    res.status(200).send({
+        scores : scoresHits,
+        signup : signupHits
     });
 });
 

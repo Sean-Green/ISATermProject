@@ -6,7 +6,7 @@
 
 ### POST Operations 
 
-## /signup 
+## http://sean-green-cst.com/quaterKings/v1/signup 
 Create new User entry and login
 
 ## /login 
