@@ -12,4 +12,9 @@
     }
 
 
+
+    function Login(){
+        //log in code here
+    }
+
     document.getElementById("loginBtn").onclick = Signup;
