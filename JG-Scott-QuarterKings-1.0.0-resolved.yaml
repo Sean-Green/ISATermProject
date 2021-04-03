@@ -2,30 +2,40 @@
 swagger: "2.0"
 info:
   description: QuarterKings is an API which allows game developers to easily implement arcade type leaderboards without the hassle of making their own database.
-  version: 1.0.0
+  version: 1
   title: QuarterKings API
   contact:
-    email: you@your-company.com
+    email: pocketPrince@quarterKings.com
   license:
     name: Apache 2.0
     url: http://www.apache.org/licenses/LICENSE-2.0.html
-host: virtserver.swaggerhub.com
-basePath: /JG-Scott/QuarterKings/1.0.0
+host: sean-green-cst.com
+basePath: /quarterKings/v1
 tags:
-- name: admins
-  description: Secured Admin-only calls
-- name: developers
-  description: Operations available to regular developers
+- name: admin complete
+  description: Completed admin endpoints
+- name: developers complete
+  description: Completed developer endpoints
+- name: planned
+  description: Planned operations available to regular developers
 schemes:
 - https
 paths:
   /signup:
     post:
       tags:
-      - developers
+      - admin complete
       summary: Create new User entry and login
-      description: TODO FILL THIS IN
-      parameters: []
+      description: Creates a user in the users table of the database
+      parameters: 
+      - name: name
+        in: body
+        description: user name to be created
+        type: string
+      - name: password
+        in: body
+        description: user password to be created
+        type: string
       responses:
         "201":
           description: account created
@@ -48,7 +58,7 @@ paths:
   /generate:
     post:
       tags:
-      - developers
+      - planned
       summary: Create new API Key
       description: TODO FILL THIS IN
       parameters: []
@@ -58,7 +68,7 @@ paths:
   /score:
     post:
       tags:
-      - developers
+      - planned
       summary: Create new entry in score table
       description: TODO FILL THIS IN
       parameters: []
@@ -68,7 +78,7 @@ paths:
   /deleteAll:
     delete:
       tags:
-      - developers
+      - planned
       summary: Delete an API key and all scores associated with it.
       description: TODO FILL THIS IN
       parameters: []
@@ -78,7 +88,7 @@ paths:
   /deleteScore:
     delete:
       tags:
-      - developers
+      - planned
       summary: Delete a single entry from the score table
       description: TODO FILL THIS IN
       parameters: []
@@ -88,7 +98,7 @@ paths:
   /updateDomain:
     put:
       tags:
-      - developers
+      - planned
       summary: Update the domain name at the given api key
       description: TODO FILL THIS IN
       parameters: []
@@ -98,21 +108,21 @@ paths:
   /updateEmail:
     put:
       tags:
-      - developers
+      - planned
       summary: Update the users login email
       description: TODO FILL THIS IN
       parameters: []
       responses:
         "200":
           description: OK
-  /getScore:
+  /scores:
     get:
       tags:
-      - developers
+      - developers complete
       summary: Get a list of scores connected to the provided api key
-      description: TODO FILL THIS IN
+      description: Returns a list of scores based on the api key attached to query
       parameters:
-      - name: key
+      - name: api
         in: query
         description: The API key connected to the scores you wish to access
         required: true
@@ -123,7 +133,7 @@ paths:
   /inventory:
     get:
       tags:
-      - developers
+      - planned
       summary: searches inventory
       description: |
         By passing in the appropriate options, you can search for

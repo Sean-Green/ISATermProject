@@ -32,6 +32,9 @@ app.post('/quarterKings/v1/signup',  (req, res)=>{
     req.on("data", (data) => {
         let strdata = `${data}`;
         let user = (JSON.parse(strdata));  
+        if (!user.name || !user.password) {
+            res.status(400).send('invalid input, object invalid')
+        }
         connection.query(
             `INSERT INTO users(email, password)
             VALUES ("${user.name}", "${user.password}");`, 
@@ -39,7 +42,7 @@ app.post('/quarterKings/v1/signup',  (req, res)=>{
             if (error) {
                 // console.log(error);
                 console.log(`SQL Insert Failed: ${error.message}`);
-                res.status('400').send(`${error.message}`);
+                res.status('409').send(`${error.message}`);
                 // throw error;
             } else {
                 console.log("");
