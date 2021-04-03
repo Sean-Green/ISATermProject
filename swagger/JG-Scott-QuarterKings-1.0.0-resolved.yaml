@@ -1,0 +1,223 @@
+---
+swagger: "2.0"
+info:
+  description: QuarterKings is an API which allows game developers to easily implement arcade type leaderboards without the hassle of making their own database.
+  version: 1.0.0
+  title: QuarterKings API
+  contact:
+    email: you@your-company.com
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+host: virtserver.swaggerhub.com
+basePath: /JG-Scott/QuarterKings/1.0.0
+tags:
+- name: admins
+  description: Secured Admin-only calls
+- name: developers
+  description: Operations available to regular developers
+schemes:
+- https
+paths:
+  /signup:
+    post:
+      tags:
+      - developers
+      summary: Create new User entry and login
+      description: TODO FILL THIS IN
+      parameters: []
+      responses:
+        "201":
+          description: account created
+        "400":
+          description: invalid input, object invalid
+        "409":
+          description: an existing item already exists
+  /login:
+    post:
+      tags:
+      - developers
+      summary: Authorize login
+      description: TODO FILL THIS IN
+      parameters: []
+      responses:
+        "201":
+          description: login successful
+        "400":
+          description: invalid input,  login unsuccessful
+  /generate:
+    post:
+      tags:
+      - developers
+      summary: Create new API Key
+      description: TODO FILL THIS IN
+      parameters: []
+      responses:
+        "200":
+          description: OK
+  /score:
+    post:
+      tags:
+      - developers
+      summary: Create new entry in score table
+      description: TODO FILL THIS IN
+      parameters: []
+      responses:
+        "200":
+          description: OK
+  /deleteAll:
+    delete:
+      tags:
+      - developers
+      summary: Delete an API key and all scores associated with it.
+      description: TODO FILL THIS IN
+      parameters: []
+      responses:
+        "200":
+          description: OK
+  /deleteScore:
+    delete:
+      tags:
+      - developers
+      summary: Delete a single entry from the score table
+      description: TODO FILL THIS IN
+      parameters: []
+      responses:
+        "200":
+          description: OK
+  /updateDomain:
+    put:
+      tags:
+      - developers
+      summary: Update the domain name at the given api key
+      description: TODO FILL THIS IN
+      parameters: []
+      responses:
+        "200":
+          description: OK
+  /updateEmail:
+    put:
+      tags:
+      - developers
+      summary: Update the users login email
+      description: TODO FILL THIS IN
+      parameters: []
+      responses:
+        "200":
+          description: OK
+  /getScore:
+    get:
+      tags:
+      - developers
+      summary: Get a list of scores connected to the provided api key
+      description: TODO FILL THIS IN
+      parameters:
+      - name: key
+        in: query
+        description: The API key connected to the scores you wish to access
+        required: true
+        type: string
+      responses:
+        "200":
+          description: OK
+  /inventory:
+    get:
+      tags:
+      - developers
+      summary: searches inventory
+      description: |
+        By passing in the appropriate options, you can search for
+        available inventory in the system
+      operationId: searchInventory
+      produces:
+      - application/json
+      parameters:
+      - name: searchString
+        in: query
+        description: pass an optional search string for looking up inventory
+        required: false
+        type: string
+      - name: skip
+        in: query
+        description: number of records to skip for pagination
+        required: false
+        type: integer
+        minimum: 0
+        format: int32
+      - name: limit
+        in: query
+        description: maximum number of records to return
+        required: false
+        type: integer
+        maximum: 50
+        minimum: 0
+        format: int32
+      responses:
+        "200":
+          description: search results matching criteria
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/InventoryItem'
+        "400":
+          description: bad input parameter
+    post:
+      tags:
+      - admins
+      summary: adds an inventory item
+      description: Adds an item to the system
+      operationId: addInventory
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - in: body
+        name: inventoryItem
+        description: Inventory item to add
+        required: false
+        schema:
+          $ref: '#/definitions/InventoryItem'
+      responses:
+        "201":
+          description: item created
+        "400":
+          description: invalid input, object invalid
+        "409":
+          description: an existing item already exists
+definitions:
+  InventoryItem:
+    type: object
+    required:
+    - id
+    - manufacturer
+    - name
+    - releaseDate
+    properties:
+      id:
+        type: string
+        format: uuid
+        example: d290f1ee-6c54-4b01-90e6-d701748f0851
+      name:
+        type: string
+        example: Widget Adapter
+      releaseDate:
+        type: string
+        format: date-time
+        example: 2016-08-29T09:12:33.001+0000
+      manufacturer:
+        $ref: '#/definitions/Manufacturer'
+  Manufacturer:
+    required:
+    - name
+    properties:
+      name:
+        type: string
+        example: ACME Corporation
+      homePage:
+        type: string
+        format: url
+        example: https://www.acme-corp.com
+      phone:
+        type: string
+        example: 408-867-5309
