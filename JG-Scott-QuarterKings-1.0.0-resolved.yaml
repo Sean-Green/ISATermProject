@@ -46,25 +46,55 @@ paths:
   /login:
     post:
       tags:
-      - developers
-      summary: Authorize login
-      description: TODO FILL THIS IN
-      parameters: []
+      - admin complete
+      summary: Confirm user exists in system and return 200
+      description: Checks the user name and password against the database entry
+      parameters: 
+      - name: name
+        in: body
+        description: user name to be queried
+        type: string
+      - name: password
+        in: body
+        description: user password to be queried
+        type: string
       responses:
-        "201":
-          description: login successful
+        "200":
+          description: credentials confirmed
         "400":
-          description: invalid input,  login unsuccessful
+          description: invalid object sent to server
+        "404":
+          description: invalid username or password
+        "500":
+          description: error description returned with status
   /generate:
     post:
       tags:
-      - planned
-      summary: Create new API Key
-      description: TODO FILL THIS IN
-      parameters: []
+      - admin complete
+      summary: generates and returns a new API key for the user
+      description: Generates a random 16 character string for the user to use as an API key to store scores in our database.
+      parameters: 
+      - name: name
+        in: body
+        description: user name to be confirmed
+        type: string
+      - name: password
+        in: body
+        description: user password to be confirmed
+        type: string
+      - name: domain
+        in: body
+        type: string
+        description: host url of app that will use this api-key
       responses:
-        "200":
-          description: OK
+        "201":
+          description: returns a json object with the newly created api key
+        "400":
+          description: invalid object sent to server
+        "404":
+          description: invalid username or password
+        "500":
+          description: error description returned with status
   /score:
     post:
       tags:

@@ -30,3 +30,24 @@ VALUES ("johnny@scottmail.ca", "0123456789abcdef", "localhost");
 
 INSERT INTO scores(scoreDate, playerName, apiKey, score)
 VALUES('1989-10-24 09:22:32 AM', 'speedJesus', "0123456789abcdef", 987654321);
+
+CREATE TABLE endPoints(
+   url         VARCHAR(16)    NOT NULL,
+   hits        INT            NOT NULL,
+   PRIMARY KEY (url)
+)
+
+INSERT INTO endPoints(url, hits) VALUES('stats', 0)
+INSERT INTO endPoints(url, hits) VALUES('scores', 0)
+INSERT INTO endPoints(url, hits) VALUES('signup', 0)
+INSERT INTO endPoints(url, hits) VALUES('login', 0)
+INSERT INTO endPoints(url, hits) VALUES('generate', 0)
+INSERT INTO endPoints(url, hits) VALUES('getKeys', 0)
+
+-- UPDATE endPoints SET hits = hits + 1 WHERE url = 'scores'
+
+INSERT INTO apiKeys(email, apiKey, domain)
+VALUES ((SELECT email 
+         FROM users 
+         WHERE email = 'johnny@scottmail.ca' 
+            AND password = "ilovescatman"), "0987654123abcdef", "localhost");
