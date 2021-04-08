@@ -145,7 +145,7 @@ paths:
       responses:
         "200":
           description: OK
-  /scores:
+  /getScores:
     get:
       tags:
       - developers complete

@@ -157,33 +157,29 @@ app.post('/quarterKings/v1/getKeys',  (req, res)=>{
 });
 
 app.post('/quarterKings/v1/score',  (req, res)=>{  
-    increment('generate');
+    increment('score');
     res.header('Access-Control-Allow-Origin', '*');
     req.on("data", (data) => {
         let strdata = `${data}`;
-        let user = (JSON.parse(strdata));  
-        if (!user.name || !user.password || !user.domain) {
+        let score = (JSON.parse(strdata));  
+        if (!score.name || !score.score || !score.apiKey) {
             res.status(400).send('invalid input, object invalid')
-            console.log('POST /generate/ failed, invalid object ')
+            console.log('POST /score/ failed, invalid object ')
             return;
         }
-        console.log(`generating api key for for 
-            ${user.name} ${user.password} ${user.domain}`)
-        let newkey = generateAPIKey();
+        console.log(`Inserting score for player  
+            ${score.name} of ${score.score} in apikey ${score.domain}`)
         connection.query(
-            `INSERT INTO apiKeys(email, apiKey, domain)
-            VALUES ((SELECT email 
-                    FROM users 
-                    WHERE email = "${user.name}" 
-                    AND password = "${user.password}"), "${newkey}", "${user.domain}");`, 
+            `INSERT INTO scores(scoreDate, playerName, apiKey, score)
+            VALUES(CURRENT_TIMESTAMP, '${score.name}', "${score.apiKey}", ${score.score});`, 
             function (error, results, fields) {
             if (error) {
-                console.log(`SQL Select in /generate/ Failed: ${error.message}`);
-                res.status('401').send({ message : `username/password invalid`, "error" : `${error.message}`});
+                console.log(`SQL insert in /score/ Failed: ${error.message}`);
+                res.status(400).send(`apikey ${score.apiKey} invalid`);
                 return;
             } else {
-                console.log(`APIKey ${newkey} generated for ${user.name}`);
-                res.status(201).send({key : newkey});
+                console.log(`Score inserted for ${score.name} with ${score.apiKey}`);
+                res.status(201).send("Success");
                 return;  
             }             
         });          

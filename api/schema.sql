@@ -37,12 +37,13 @@ CREATE TABLE endPoints(
    PRIMARY KEY (url)
 )
 
-INSERT INTO endPoints(url, hits) VALUES('stats', 0)
-INSERT INTO endPoints(url, hits) VALUES('getScores', 0)
-INSERT INTO endPoints(url, hits) VALUES('signup', 0)
-INSERT INTO endPoints(url, hits) VALUES('login', 0)
-INSERT INTO endPoints(url, hits) VALUES('generate', 0)
-INSERT INTO endPoints(url, hits) VALUES('getKeys', 0)
+INSERT INTO endPoints(url, hits) VALUES('stats', 0);
+INSERT INTO endPoints(url, hits) VALUES('getScores', 0);
+INSERT INTO endPoints(url, hits) VALUES('signup', 0);
+INSERT INTO endPoints(url, hits) VALUES('login', 0);
+INSERT INTO endPoints(url, hits) VALUES('generate', 0);
+INSERT INTO endPoints(url, hits) VALUES('getKeys', 0);
+INSERT INTO endPoints(url, hits) VALUES('score', 0);
 
 -- UPDATE endPoints SET hits = hits + 1 WHERE url = 'scores'
 
