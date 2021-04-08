@@ -111,7 +111,7 @@ app.post('/quarterKings/v1/generate',  (req, res)=>{
             function (error, results, fields) {
             if (error) {
                 console.log(`SQL Select in /generate/ Failed: ${error.message}`);
-                res.status('400').send({ message : `username/password invalid`, "error" : `${error.message}`});
+                res.status('401').send({ message : `username/password invalid`, "error" : `${error.message}`});
                 return;
             } else {
                 console.log(`APIKey ${newkey} generated for ${user.name}`);
@@ -122,6 +122,7 @@ app.post('/quarterKings/v1/generate',  (req, res)=>{
     });
 });
 
+// Returns all keys for the given user
 app.post('/quarterKings/v1/getKeys',  (req, res)=>{  
     increment('getKeys');
     res.header('Access-Control-Allow-Origin', '*');
@@ -155,14 +156,69 @@ app.post('/quarterKings/v1/getKeys',  (req, res)=>{
     });
 });
 
-// TODO Add authentication to stats, make it a POST method
-app.get('/quarterKings/v1/stats', (req, res)=>{
+app.post('/quarterKings/v1/score',  (req, res)=>{  
+    increment('generate');
+    res.header('Access-Control-Allow-Origin', '*');
+    req.on("data", (data) => {
+        let strdata = `${data}`;
+        let user = (JSON.parse(strdata));  
+        if (!user.name || !user.password || !user.domain) {
+            res.status(400).send('invalid input, object invalid')
+            console.log('POST /generate/ failed, invalid object ')
+            return;
+        }
+        console.log(`generating api key for for 
+            ${user.name} ${user.password} ${user.domain}`)
+        let newkey = generateAPIKey();
+        connection.query(
+            `INSERT INTO apiKeys(email, apiKey, domain)
+            VALUES ((SELECT email 
+                    FROM users 
+                    WHERE email = "${user.name}" 
+                    AND password = "${user.password}"), "${newkey}", "${user.domain}");`, 
+            function (error, results, fields) {
+            if (error) {
+                console.log(`SQL Select in /generate/ Failed: ${error.message}`);
+                res.status('401').send({ message : `username/password invalid`, "error" : `${error.message}`});
+                return;
+            } else {
+                console.log(`APIKey ${newkey} generated for ${user.name}`);
+                res.status(201).send({key : newkey});
+                return;  
+            }             
+        });          
+    });
+});
+
+// Returns Stats on endpoints
+app.post('/quarterKings/v1/stats', (req, res)=>{
     increment('stats');
-    connection.query(`SELECT * FROM endPoints`,
-        (err, results, fields)=>{
-            console.log('Stats Queried');
-            res.status(200).send(results);
-        });
+    res.header('Access-Control-Allow-Origin', '*');
+    req.on("data", (data) => {
+        let strdata = `${data}`;
+        let user = (JSON.parse(strdata));  
+        if (!user.name || !user.password) {
+            res.status(400).send('invalid input, object invalid')
+            console.log('POST /generate/ failed, invalid object ')
+            return;
+        } else if (user.name !== "Admin" || user.password !== "admin12345") {
+            res.status(401).send('username or password invalid')
+            console.log('POST /generate/ failed, invalid object ')
+            return;
+        }
+        connection.query(
+            `SELECT * FROM endPoints`, 
+            function (error, results, fields) {
+            if (error) {
+                console.log(`SQL Select Failed: ${error.message}`);
+                res.status('400').send(`${error.message}`);
+                return;
+            } else {
+                console.log(`Stats retrieved for ${user.name}`);
+                res.status(200).send(results);
+            } 
+        });          
+    });
 });
 
 // GET Methods
@@ -171,8 +227,8 @@ app.get('/quarterKings/v1/stats', (req, res)=>{
 // Get the score for the queried apiKey, 
 // if the key doesn't match the domain that sent the query 
 // or doesn't exist yet, send a 400 error.
-app.get('/quarterKings/v1/scores', (req, res) => {
-    increment('scores');
+app.get('/quarterKings/v1/getScores', (req, res) => {
+    increment('getScores');
     console.log(`Request from api key = ${req.query.api} hostname = ${req.hostname}`);
     if (!req.query.api) {
         res.status('400').send('No api specified in query.');
@@ -200,11 +256,10 @@ app.get('/quarterKings/v1/scores', (req, res) => {
     }
 });
 
-
-
-
 // Helper methods
 // -----------------------------------------------------------------------
+
+// increment endpoint stats in the database
 function increment(endpoint) {
     connection.query(`UPDATE endPoints SET hits = hits + 1 WHERE url = '${endpoint}'`,
     (err, res, fields) => {
