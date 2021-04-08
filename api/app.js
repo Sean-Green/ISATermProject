@@ -217,7 +217,7 @@ app.post('/quarterKings/v1/stats', (req, res)=>{
     });
 });
 
-// GET Methods
+// GET METHODS
 // ------------------------------------------------------------------------------------
 
 // Get the score for the queried apiKey, 
@@ -225,6 +225,7 @@ app.post('/quarterKings/v1/stats', (req, res)=>{
 // or doesn't exist yet, send a 400 error.
 app.get('/quarterKings/v1/getScores', (req, res) => {
     increment('getScores');
+    res.header('Access-Control-Allow-Origin', '*');
     console.log(`Request from api key = ${req.query.api} hostname = ${req.hostname}`);
     if (!req.query.api) {
         res.status('400').send('No api specified in query.');
@@ -232,21 +233,19 @@ app.get('/quarterKings/v1/getScores', (req, res) => {
     } else {
         connection.query(
         `SELECT * 
-        FROM apiKeys 
+        FROM scores 
         WHERE apiKey = '${req.query.api}'`, 
         function (error, results, fields) {
             if (error) {
                 console.log("SQL DATABASE ERROR in /scores GET");
                 res.status('500').send('Internal Server Error').send;
                 // throw error;
-            } else if (req.hostname === results[0].domain && req.query.api === results[0].apiKey) {
+            } else {
                 // connected!
                 console.log('Success returning ')
                 res.status('200').send(
                     results
                 );
-            } else {
-                res.status('400').send('APIKey/Domain invalid');
             }
         });
     }
