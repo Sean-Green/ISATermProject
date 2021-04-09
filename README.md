@@ -8,12 +8,19 @@
 
 ## http://sean-green-cst.com/quaterKings/v1/signup 
 Create new User entry and login
+For Admin Only
+takes a name and password in the body and returns 201 if success
 
 ## /login 
 Authorize login
+For Admin only
+Takes a name and password and returns 200 on success, 400 on failure
 
 ## /generate 
 Create new API Key
+
+## /getKeys
+Return all API keys for the user in question
 
 ## /score 
 Create new entry in score table
