@@ -251,6 +251,47 @@ app.get('/quarterKings/v1/getScores', (req, res) => {
     }
 });
 
+// DELETE METHODS
+// --------------------------------------------------------------------------
+
+// ## /deleteAll 
+// Delete an api key and all scores associated with it
+app.delete('/quarterKings/v1/deleteAll', (req, res) => {
+    res.header('Access-Control-Allow-Origin', '*');
+    increment('deleteAll');
+    console.log(`Request from api key = ${req.query.api} hostname = ${req.hostname}`);
+    if (!req.query.api) {
+        res.status('400').send('No api specified in query.');
+        console.log('No API Key, bad request.')
+    } else {
+        connection.query(
+        `DELETE FROM scores WHERE apiKey = '${req.query.api}'`, 
+        function (error, results, fields) {
+            if (error) {
+                console.log("SQL DATABASE ERROR in /deleteAll DELETE");
+                res.status('500').send('Internal Server Error').send;
+                // throw error;
+            } else {
+                // connected!
+                console.log('Success returning ')
+                res.status('204').send('Deletion successful');
+            }
+        });
+    }
+});
+
+// ## /deleteScore 
+// delete a single entry from the score table
+
+// PUT METHODS
+// --------------------------------------------------------------------------
+
+// ## /updateDomain 
+// update the domain name at the given api key
+
+// ## /updateEmail
+// update the users login email
+
 // Helper methods
 // -----------------------------------------------------------------------
 

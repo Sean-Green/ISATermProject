@@ -12,16 +12,17 @@
          // const url = "http://localhost:3000/quarterKings/v1/getKeys";
          // const url = "http://localhost:3000/quarterKings/v1/stats";
          // const url = "http://localhost:3000/quarterKings/v1/score"; 
+         const url = "http://localhost:3000/quarterKings/v1/deleteAll"; 
 
          // const url = "http://sean-green-cst.com/quarterKings/v1/signup";
          // const url = "http://sean-green-cst.com/quarterKings/v1/login";
          // const url = "http://sean-green-cst.com/quarterKings/v1/generate";
          // const url = "http://sean-green-cst.com/quarterKings/v1/getKeys";
          // const url = "http://sean-green-cst.com/quarterKings/v1/stats";
-         const url = "http://sean-green-cst.com/quarterKings/v1/score"; 
+         // const url = "http://sean-green-cst.com/quarterKings/v1/score"; 
          var http = new XMLHttpRequest;
-         http.open("POST", url, true);
-         http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+         http.open("DELETE", url);
+         http.setRequestHeader("Content-type", "application/json");
          http.onload = () => {console.log(`${http.status} ${http.responseText}`)};
          http.send(JSON.stringify(
             {
