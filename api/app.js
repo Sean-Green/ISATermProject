@@ -92,7 +92,7 @@ app.post('/quarterKings/v1/login', (req, res) => {
                 if (error) {
                     // console.log(error);
                     console.log(`SQL Select Failed: ${error.message}`);
-                    res.status('500').send(`${error.message}`);
+                    res.status(500).send(`${error.message}`);
                     // throw error;
                 } else if (results.length > 0) {
                     console.log(`User ${user.name} Logged in`);
@@ -100,7 +100,7 @@ app.post('/quarterKings/v1/login', (req, res) => {
                 } else {
                     console.log(results)
                     console.log('Username or Password invalid');
-                    res.status('401').send('username or password invalid');
+                    res.status(401).send('username or password invalid');
                 }
             });
     });
@@ -136,7 +136,7 @@ app.post('/quarterKings/v1/generate', (req, res) => {
             function (error, results, fields) {
                 if (error) {
                     console.log(`SQL Select in /generate/ Failed: ${error.message}`);
-                    res.status('401').send({
+                    res.status(401).send({
                         message: `username/password invalid`,
                         "error": `${error.message}`
                     });
@@ -178,8 +178,8 @@ app.post('/quarterKings/v1/getKeys', (req, res) => {
                 AND password = "${user.password}")`,
             function (error, results, fields) {
                 if (error) {
-                    console.log(`SQL Select Failed: ${error.message}`);
-                    res.status('400').send(`${error.message}`);
+                    console.log(`Invalid username or password: ${error.message}`);
+                    res.status('401').send(`invalid username or password`);
                     return;
                 } else {
                     console.log(`APIKeys retrieved for ${user.name}`);
@@ -208,7 +208,7 @@ app.post('/quarterKings/v1/score', (req, res) => {
             function (error, results, fields) {
                 if (error) {
                     console.log(`SQL insert in /score/ Failed: ${error.message}`);
-                    res.status(400).send(`apikey ${score.apiKey} invalid`);
+                    res.status(401).send(`apikey ${score.apiKey} invalid`);
                     return;
                 } else {
                     console.log(`Score inserted for ${score.name} with ${score.apiKey}`);
@@ -244,7 +244,7 @@ app.post('/quarterKings/v1/stats', (req, res) => {
             function (error, results, fields) {
                 if (error) {
                     console.log(`SQL Select Failed: ${error.message}`);
-                    res.status('400').send(`${error.message}`);
+                    res.status(500).send(`${error.message}`);
                     return;
                 } else {
                     console.log(`Stats retrieved for ${user.name}`);
@@ -292,17 +292,17 @@ app.get('/quarterKings/v1/getScores', (req, res) => {
 // TODO Add host confirmation
 
 // ## /deleteAll 
-// Delete all scores associated with an API key it
+// Delete all scores associated with an API key 
 app.delete('/quarterKings/v1/deleteAll', (req, res) => {
-    if (clientOrigin && req.headers.origin !== clientOrigin) {
-        res.status(403).send('Forbidden');
-        console.log(`Access to login from ${req.headers.origin} refused`);
-        return;
-    }
     increment('deleteAll');
     req.on("data", (data) => {
         let strdata = `${data}`;
         let user = (JSON.parse(strdata));
+        if (!user.apiKey) {
+            res.status(400).send('invalid input, object invalid')
+            console.log('/deleteAll failed, invalid object ')
+            return;
+        }
         console.log(`Request from api key = ${user.apiKey} origin = ${req.headers.origin}`);
         connection.query(
         `DELETE FROM scores WHERE apiKey = '${user.apiKey}'`,
