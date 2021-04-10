@@ -25,7 +25,7 @@ Create new entry in score table
 
 ### DELETE Operations ------------------------------------------------------------------------
 ## http://sean-green-cst.com/quarterKings/v1/deleteAll
-Delete an api key and all scores associated with it
+Delete all scores associated with a given apikey
 
 ## http://sean-green-cst.com/quarterKings/v1/deleteScore
 delete a single entry from the score table

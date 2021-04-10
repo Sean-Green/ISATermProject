@@ -1,6 +1,9 @@
 const express = require('express');
 const app = express();
 const port = 3000;
+var clientOrigin;
+// clientOrigin = 'http://127.0.0.1:5500';
+// clientOrigin = 'https://www.johnnyscott.ca/'
 
 app.use(function (req, res, next) {
     res.header('Access-Control-Allow-Origin', '*');
@@ -33,6 +36,11 @@ connection.connect(function (err) {
 
 // Admin POST method for adding logins
 app.post('/quarterKings/v1/signup', (req, res) => {
+    if (clientOrigin && req.headers.origin !== clientOrigin) {
+        res.status(403).send('Forbidden');
+        console.log(`Access to login from ${req.headers.origin} refused`);
+        return;
+    }
     increment('signup');
     req.on("data", (data) => {
         let strdata = `${data}`;
@@ -49,7 +57,7 @@ app.post('/quarterKings/v1/signup', (req, res) => {
                 if (error) {
                     // console.log(error);
                     console.log(`SQL Insert Failed: ${error.message}`);
-                    res.status('409').send(`${error.message}`);
+                    res.status(409).send(`${error.message}`);
                     // throw error;
                 } else {
                     console.log(`User ${user.name} Created`);
@@ -61,6 +69,11 @@ app.post('/quarterKings/v1/signup', (req, res) => {
 
 // Login post method for admins
 app.post('/quarterKings/v1/login', (req, res) => {
+    if (clientOrigin && req.headers.origin !== clientOrigin) {
+        res.status(403).send('Forbidden');
+        console.log(`Access to login from ${req.headers.origin} refused`);
+        return;
+    }
     increment('login');
     req.on("data", (data) => {
         let strdata = `${data}`;
@@ -97,6 +110,11 @@ app.post('/quarterKings/v1/login', (req, res) => {
 // Uses SQL to check for the user account before inserting a new key, 
 // if the user account info is wrong it will fail and return 400.
 app.post('/quarterKings/v1/generate', (req, res) => {
+    if (clientOrigin && req.headers.origin !== clientOrigin) {
+        res.status(403).send('Forbidden');
+        console.log(`Access to login from ${req.headers.origin} refused`);
+        return;
+    }
     increment('generate');
     req.on("data", (data) => {
         let strdata = `${data}`;
@@ -136,6 +154,11 @@ app.post('/quarterKings/v1/generate', (req, res) => {
 
 // Returns all keys for the given user
 app.post('/quarterKings/v1/getKeys', (req, res) => {
+    if (clientOrigin && req.headers.origin !== clientOrigin) {
+        res.status(403).send('Forbidden');
+        console.log(`Access to login from ${req.headers.origin} refused`);
+        return;
+    }
     increment('getKeys');
     req.on("data", (data) => {
         let strdata = `${data}`;
@@ -198,6 +221,11 @@ app.post('/quarterKings/v1/score', (req, res) => {
 
 // Returns Stats on endpoints
 app.post('/quarterKings/v1/stats', (req, res) => {
+    if (clientOrigin && req.headers.origin !== clientOrigin) {
+        res.status(403).send('Forbidden');
+        console.log(`Access to login from ${req.headers.origin} refused`);
+        return;
+    }
     increment('stats');
     req.on("data", (data) => {
         let strdata = `${data}`;
@@ -264,8 +292,13 @@ app.get('/quarterKings/v1/getScores', (req, res) => {
 // TODO Add host confirmation
 
 // ## /deleteAll 
-// Delete an api key and all scores associated with it
+// Delete all scores associated with an API key it
 app.delete('/quarterKings/v1/deleteAll', (req, res) => {
+    if (clientOrigin && req.headers.origin !== clientOrigin) {
+        res.status(403).send('Forbidden');
+        console.log(`Access to login from ${req.headers.origin} refused`);
+        return;
+    }
     increment('deleteAll');
     req.on("data", (data) => {
         let strdata = `${data}`;
@@ -316,7 +349,7 @@ app.delete('/quarterKings/v1/deleteScore', (req, res) => {
 
 // deleteApiKey
 // Admin only
-// TODO
+// Delete all scores associated with an apiKey, then delete the api key.
 app.delete('/quarterKings/v1/deleteApiKey', (req, res) => {
     increment('deleteApiKey');
     req.on("data", (data) => {
@@ -343,17 +376,29 @@ app.delete('/quarterKings/v1/deleteApiKey', (req, res) => {
                 res.status('500').send(`Internal server error ${err1.message}`);
                 return;
             } else if (selResults.length === 1){ 
-                console.log(`Deleting apikey ${user.apiKey}`);
+                // TODO delete apiKey scores
                 connection.query(
-                `DELETE FROM apiKeys
-                WHERE apiKey = '${user.apiKey}'`,
-                function (err2, r, f2) {
-                    if (err2) {
-                        console.log(`${err2}`)
-                    } else {
-                        console.log(`Delete successful for apikey ${user.apiKey}`);
-                        res.status(204).send('Successful Delete');
+                `DELETE FROM scores WHERE apiKey = '${user.apiKey}'`,
+                function (error, results, fields) {
+                    if (error) {
+                        console.log(`SQL DELETE Failed: ${error.message}`);
+                        res.status('400').send(`${error.message}`);
                         return;
+                    } else {
+                        console.log(`Deleting apikey ${user.apiKey}`);
+                        connection.query(
+                        `DELETE FROM apiKeys
+                        WHERE apiKey = '${user.apiKey}'`,
+                        function (err2, r, f2) {
+                            if (err2) {
+                                console.log(`${err2}`)
+                            } else {
+                                console.log(`Delete successful for apikey ${user.apiKey}`);
+                                res.status(204).send('Successful Delete');
+                                return;
+                            }
+                        console.log(`Deleted all data for apikey ${user.apiKey}`);
+                        });
                     }
                 });
             } else {
