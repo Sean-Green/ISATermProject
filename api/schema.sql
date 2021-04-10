@@ -44,6 +44,11 @@ INSERT INTO endPoints(url, hits) VALUES('login', 0);
 INSERT INTO endPoints(url, hits) VALUES('generate', 0);
 INSERT INTO endPoints(url, hits) VALUES('getKeys', 0);
 INSERT INTO endPoints(url, hits) VALUES('score', 0);
+INSERT INTO endPoints(url, hits) VALUES('deleteAll', 0);
+INSERT INTO endPoints(url, hits) VALUES('deleteScore', 0);
+INSERT INTO endPoints(url, hits) VALUES('deleteApiKey', 0);
+INSERT INTO endPoints(url, hits) VALUES('updateDomain', 0);
+INSERT INTO endPoints(url, hits) VALUES('updateScore', 0);
 
 -- UPDATE endPoints SET hits = hits + 1 WHERE url = 'scores'
 
@@ -52,3 +57,11 @@ VALUES ((SELECT email
          FROM users 
          WHERE email = 'johnny@scottmail.ca' 
             AND password = "ilovescatman"), "0987654123abcdef", "localhost");
+
+SELECT * 
+FROM apiKeys NATURAL JOIN users 
+WHERE apiKey = '0123456789abcdef'
+   AND email = 'johnny@scottmail.ca'
+   AND password = "ilovescatman"
+
+UPDATE apiKeys SET domain = "galaga.com" where apiKey = '0123456789abcdef'

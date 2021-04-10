@@ -5,43 +5,41 @@
 ## Operations
 
 ### POST Operations -----------------------------------------------------------------------------
-
 ## http://sean-green-cst.com/quaterKings/v1/signup 
 Create new User entry and login
-For Admin Only
-takes a name and password in the body and returns 201 if success
 
-## /login 
+## http://sean-green-cst.com/quarterKings/v1/login 
 Authorize login
-For Admin only
-Takes a name and password and returns 200 on success, 400 on failure
 
-## /generate 
+## http://sean-green-cst.com/quarterKings/v1/generate
 Create new API Key
 
-## /getKeys
+## http://sean-green-cst.com/quarterKings/v1/getKeys
 Return all API keys for the user in question
 
-## /score 
+## http://sean-green-cst.com/quarterKings/v1/stats
+Get stats for all endpoints
+
+## http://sean-green-cst.com/quarterKings/v1/score
 Create new entry in score table
 
 ### DELETE Operations ------------------------------------------------------------------------
-
-## /deleteAll 
+## http://sean-green-cst.com/quarterKings/v1/deleteAll
 Delete an api key and all scores associated with it
 
-## /deleteScore 
+## http://sean-green-cst.com/quarterKings/v1/deleteScore
 delete a single entry from the score table
 
-### PUT Operations ---------------------------------------------------------------------------
+## http://sean-green-cst.com/quarterKings/v1/deleteApiKey
+deletes an apikey entry
 
-## /updateDomain 
+### PUT Operations ---------------------------------------------------------------------------
+## http://sean-green-cst.com/quarterKings/v1/updateDomain 
 update the domain name at the given api key
 
-## /updateEmail
-update the users login email
+## http://sean-green-cst.com/quarterKings/v1/updateScore
+update the score of a single entry by ID and apikey
 
 ### GET Operation -----------------------------------------------------------------------------
-
-## /scores?api=
+## http://sean-green-cst.com/quarterKings/v1/getScores?api=
 get a list of scores stored with the apikey you provide
