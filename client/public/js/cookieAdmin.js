@@ -8,7 +8,24 @@ function deleteEntry(element) {
     //delete entry
 }
 function deleteAllEntries() {
-    //delete all entries
+    const url = "https://sean-green-cst.com/quarterKings/v1/getScores?api=0123456789abcdef";
+    var http = new XMLHttpRequest;
+    http.open("DELETE", url, true);
+    http.send( null );
+    http.onload = () => {
+        completeList = JSON.parse(http.responseText)
+        scoresResponseDiv.innerHTML = http.responseText.replace(/,/g, '<br>');
+        console.log(completeList)
+        for(let i = 0; i < completeList.length; i++){
+            let x = {name: completeList[i].playerName, score: completeList[i].score, id: completeList[i].scoreID}
+            entryList.push(x)
+        }   
+        console.log(entryList)
+        entryList.sort(function(a, b) {
+            return parseInt(b.score) - parseInt(a.score);
+        });
+        populateLeaderboard(entryList);
+    }
 }
 
 
