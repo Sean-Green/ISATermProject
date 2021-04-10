@@ -460,9 +460,8 @@ app.put('/quarterKings/v1/updateDomain', (req, res) => {
     });
 });
 
-// ## /updateEmail
-// Admin only
-// update the users login email
+// ## /updatsScore
+// update a score
 app.put('/quarterKings/v1/updateScore', (req, res) => {
     increment('updateScore');
     req.on("data", (data) => {

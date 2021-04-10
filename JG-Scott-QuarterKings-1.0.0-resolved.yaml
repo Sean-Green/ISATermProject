@@ -12,9 +12,9 @@ info:
 host: sean-green-cst.com
 basePath: /quarterKings/v1
 tags:
-- name: admin complete
+- name: admin
   description: Completed admin endpoints
-- name: developers complete
+- name: developer
   description: Completed developer endpoints
 - name: planned
   description: Planned operations available to regular developers
@@ -187,7 +187,7 @@ paths:
             - name: url
               type: string
             - name: hits
-              type: int
+              type: integer
         "400":
           description: Invalid object
         "401":
@@ -213,7 +213,7 @@ paths:
             description: every array item has apiKey and domain field
             properties:
               - name: scoreID
-                type: int
+                type: integer
               - name: scoreDate
                 type: string
               - name: playerName
@@ -239,138 +239,114 @@ paths:
         required: true
         type: string
       responses:
-        "200":
+        "204":
           description: Success
         "400":
           description: Invalid Object
   /deleteScore:
     delete:
       tags:
-      - planned
+      - developer
       summary: Delete a single entry from the score table
-      description: TODO FILL THIS IN
-      parameters: []
+      description: Send the api key and id of the score in the body and QuarterKings will delete the corresponding entry
+      parameters: 
+      - name: apiKey
+        in: body
+        description: The API key connected to the score you wish to delete
+        required: true
+        type: string
+      - name: id
+        in: body
+        description: The id connected to the score you wish to delete
+        required: true
+        type: integer
       responses:
-        "200":
+        "204":
           description: OK
+        "400":
+          description: Invalid Object  
+  /deleteApiKey:
+    delete:
+      tags:
+      - admin
+      summary: Delete an api key and all scores attached to it
+      description: Delete an api key and all scores attached to it
+      parameters: 
+      - name: apiKey
+        in: body
+        description: The API key connected to the score you wish to delete
+        required: true
+        type: string
+      - name: id
+        in: body
+        description: The id connected to the score you wish to delete
+        required: true
+        type: integer
+      responses:
+        "204":
+          description: OK
+        "400":
+          description: Invalid Object
   /updateDomain:
     put:
       tags:
-      - planned
+      - developer
       summary: Update the domain name at the given api key
       description: TODO FILL THIS IN
-      parameters: []
+      parameters: 
+      - name: apiKey
+        in: body
+        description: The API key whos domain you want to update
+        required: true
+        type: string
+      - name: name
+        in: body
+        description: Username of user who wants to update a domain
+        required: true
+        type: string
+      - name: password
+        in: body
+        description: The password connected to the score you wish to delete
+        required: true
+        type: string
+      - name: domain
+        in: body
+        description: The domain connected to the score you wish to delete
+        required: true
+        type: string
       responses:
-        "200":
-          description: OK
-  /updateEmail:
+        "204":
+          description: Success
+        "400":
+          description: Invalid Object
+        "500":
+          description: Internal server error
+  /updateScore:
     put:
       tags:
-      - planned
-      summary: Update the users login email
+      - developer
+      summary: update the score 
       description: TODO FILL THIS IN
-      parameters: []
+      parameters: 
+      - name: apiKey
+        in: body
+        description: The API key whos score you want to update
+        required: true
+        type: string 
+      - name: id
+        in: body
+        description: The score id whos score you want to update
+        required: true
+        type: int
+      - name: score
+        in: body
+        description: The new score 
+        required: true
+        type: float
       responses:
-        "200":
-          description: OK
-  /inventory:
-    get:
-      tags:
-      - planned
-      summary: searches inventory
-      description: |
-        By passing in the appropriate options, you can search for
-        available inventory in the system
-      operationId: searchInventory
-      produces:
-      - application/json
-      parameters:
-      - name: searchString
-        in: query
-        description: pass an optional search string for looking up inventory
-        required: false
-        type: string
-      - name: skip
-        in: query
-        description: number of records to skip for pagination
-        required: false
-        type: integer
-        minimum: 0
-        format: int32
-      - name: limit
-        in: query
-        description: maximum number of records to return
-        required: false
-        type: integer
-        maximum: 50
-        minimum: 0
-        format: int32
-      responses:
-        "200":
-          description: search results matching criteria
-          schema:
-            type: array
-            items:
-              $ref: '#/definitions/InventoryItem'
+        "204":
+          description: Success
         "400":
-          description: bad input parameter
-    post:
-      tags:
-      - admins
-      summary: adds an inventory item
-      description: Adds an item to the system
-      operationId: addInventory
-      consumes:
-      - application/json
-      produces:
-      - application/json
-      parameters:
-      - in: body
-        name: inventoryItem
-        description: Inventory item to add
-        required: false
-        schema:
-          $ref: '#/definitions/InventoryItem'
-      responses:
-        "201":
-          description: item created
-        "400":
-          description: invalid input, object invalid
-        "409":
-          description: an existing item already exists
-definitions:
-  InventoryItem:
-    type: object
-    required:
-    - id
-    - manufacturer
-    - name
-    - releaseDate
-    properties:
-      id:
-        type: string
-        format: uuid
-        example: d290f1ee-6c54-4b01-90e6-d701748f0851
-      name:
-        type: string
-        example: Widget Adapter
-      releaseDate:
-        type: string
-        format: date-time
-        example: 2016-08-29T09:12:33.001+0000
-      manufacturer:
-        $ref: '#/definitions/Manufacturer'
-  Manufacturer:
-    required:
-    - name
-    properties:
-      name:
-        type: string
-        example: ACME Corporation
-      homePage:
-        type: string
-        format: url
-        example: https://www.acme-corp.com
-      phone:
-        type: string
-        example: 408-867-5309
+          description: Invalid Object
+        "500":
+          description: Internal server error
