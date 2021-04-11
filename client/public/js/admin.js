@@ -1,6 +1,5 @@
-const { setUncaughtExceptionCaptureCallback } = require("node:process");
 
-const url = "https://sean-green-cst.com/quarterKings/v1/stats"; 
+const url = "https://www.sean-green-cst.com/quarterKings/v1/stats"; 
 var http = new XMLHttpRequest;
 http.open("POST", url, true);
 http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
