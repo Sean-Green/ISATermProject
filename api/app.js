@@ -3,10 +3,10 @@ const app = express();
 const port = 3000;
 var clientOrigin;
 // clientOrigin = 'http://127.0.0.1:5500';
-// clientOrigin = 'https://www.johnnyscott.ca/'
+// clientOrigin = 'https://www.johnnyscott.ca'
 
 app.use(function (req, res, next) {
-    res.header('Access-Control-Allow-Origin', '*');
+    res.header('Access-Control-Allow-Origin', 'https://www.johnnyscott.ca');
     res.header('Access-Control-Allow-Methods', 'GET, PUT, POST, DELETE, OPTIONS');
     res.header('Access-Control-Allow-Headers',
         'Content-Type, Authorization, Content-Length, X-Requested-With');
@@ -402,7 +402,7 @@ app.delete('/quarterKings/v1/deleteApiKey', (req, res) => {
                     }
                 });
             } else {
-                res.status(400).send("Missing or incorrect fields")
+                res.status(401).send("ApiKey doesn't exist")
             }
         });
     });
@@ -449,7 +449,7 @@ app.put('/quarterKings/v1/updateDomain', (req, res) => {
                         console.log(`${err2}`)
                     } else {
                         console.log(`Update successful successful for apikey ${user.apiKey} with domain ${user.domain}`);
-                        res.status(204).send('Successful Domain Update');
+                        res.status(204).send(`Successful Domain Update`);
                         return;
                     }
                 });
