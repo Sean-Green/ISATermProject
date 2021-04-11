@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+   <title>
+      TestRunner
+   </title>
+</head>
+
+<body>
+   <script>    
+
+// SIGNUP  
+      // const url = "http://sean-green-cst.com/quarterKings/v1/signup";
+      // var http = new XMLHttpRequest;
+      // http.open("POST", url, true);
+      // http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+      // http.onload = () => {document.body.innerHTML = `<h1>${http.status} ${http.responseText}</h1>`};
+      // http.send(JSON.stringify(
+      //    {
+      //       name : "test@testmail.com",
+      //       password : "pass1256",
+      //    }
+      // ));
+
+// LOGIN
+      // const url = "http://sean-green-cst.com/quarterKings/v1/login";
+      // var http = new XMLHttpRequest;
+      // http.open("POST", url, true);
+      // http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+      // http.onload = () => {document.body.innerHTML = `<h1>${http.status} ${http.responseText}</h1>`};
+      // http.send(JSON.stringify(
+      //    {
+      //       name : "test@testmail.com",
+      //       password : "pass1256",
+      //    }
+      // ));
+
+// GENERATE API KEY
+      // const url = "http://sean-green-cst.com/quarterKings/v1/generate";
+      // var http = new XMLHttpRequest;
+      // http.open("POST", url, true);
+      // http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+      // http.onload = () => {document.body.innerHTML = `<h1>${http.status} ${http.responseText}</h1>`};
+      // http.send(JSON.stringify(
+      //    {
+      //       name : "test@testmail.com",
+      //       password : "pass1256",
+      //       domain : "www.johnnyscott.ca/"
+      //    }
+      // ));
+      
+// GET APIKEYS
+      // const url = "http://sean-green-cst.com/quarterKings/v1/getKeys";
+      // var http = new XMLHttpRequest;
+      // http.open("POST", url, true);
+      // http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+      // http.onload = () => {document.body.innerHTML = `<h1>${http.status} ${http.responseText}</h1>`};
+      // http.send(JSON.stringify(
+      //    {
+      //       name : "test@testmail.com",
+      //       password : "pass1256",
+      //    }
+      // ));   
+
+// GET ENDPOINT STATS
+      // const url = "http://sean-green-cst.com/quarterKings/v1/stats";
+      // var http = new XMLHttpRequest;
+      // http.open("POST", url, true);
+      // http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+      // http.onload = () => {document.body.innerHTML = `<h1>${http.status} ${http.responseText}</h1>`};
+      // http.send(JSON.stringify(
+      //    {
+      //       name : "Admin",
+      //       password : "admin12345",
+      //    }
+      // ));   
+
+// CREATE SCORE
+      // const url = "http://sean-green-cst.com/quarterKings/v1/score"; 
+      // var http = new XMLHttpRequest;
+      // http.open("POST", url, true);
+      // http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+      // http.onload = () => {document.body.innerHTML = `<h1>${http.status} ${http.responseText}</h1>`};
+      // http.send(JSON.stringify(
+      //    {
+      //       apiKey : 'hoeecvw2qg3fjmtf',
+      //       name : "shredder",
+      //       score : 812318,
+      //    }
+      // ));
+
+// GET SCORES
+      // const url = "http://sean-green-cst.com/quarterKings/v1/getScores?api=hoeecvw2qg3fjmtf";
+      // var http = new XMLHttpRequest;
+      // http.open("GET", url, true);
+      // http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+      // http.onload = () => {document.body.innerHTML = `<h1>${http.status} ${http.responseText}</h1>`};
+      // http.send();
+
+// DELETE ALL SCORES ATTACHED TO KEY
+      // const url = "http://sean-green-cst.com/quarterKings/v1/deleteAll";
+      // var http = new XMLHttpRequest;
+      // http.open("DELETE", url, true);
+      // http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+      // http.onload = () => {document.body.innerHTML = `<h1>${http.status} ${http.responseText}</h1>`}
+      // http.send(JSON.stringify(
+      //    {
+      //       apiKey : 'qtfshj14cdiyxzpk',
+      //    }
+      // ));
+
+// DELETE SPECIFIC SCORE BY ID
+      // const url = "http://sean-green-cst.com/quarterKings/v1/deleteScore"; 
+      // var http = new XMLHttpRequest;
+      // http.open("DELETE", url, true);
+      // http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+      // http.onload = () => {document.body.innerHTML = `<h1>${http.status} ${http.responseText}</h1>`}
+      // http.send(JSON.stringify(
+      //    {
+      //       apiKey : 'qtfshj14cdiyxzpk',
+      //       id : 35,
+      //    }
+      // ));
+
+// DELETE API KEY AND ALL ATTACHED SCORES
+      // const url = "http://sean-green-cst.com/quarterKings/v1/deleteApiKey";
+      // var http = new XMLHttpRequest;
+      // http.open("DELETE", url, true);
+      // http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+      // http.onload = () => {document.body.innerHTML = `<h1>${http.status} ${http.responseText}</h1>`}
+      // http.send(JSON.stringify(
+      //    {
+      //       apiKey : '6b68hazh4c38jzm3',
+      //       name : "test@testmail.com",
+      //       password : "pass1256",
+      //    }
+      // ));
+
+// UPDATE DOMAIN ATTACHED TO API
+      // const url = "http://sean-green-cst.com/quarterKings/v1/updateDomain"; 
+      // var http = new XMLHttpRequest;
+      // http.open("PUT", url, true);
+      // http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+      // http.onload = () => {document.body.innerHTML = `<h1>${http.status} ${http.responseText}</h1>`}
+      // http.send(JSON.stringify(
+      //    {
+      //       apiKey : 'hoeecvw2qg3fjmtf',
+      //       name : "test@testmail.com",
+      //       password : "pass1256",
+      //       domain : "mydomain.com"
+      //    }
+      // ));
+
+// UPDATE SCORE
+      // const url = "http://sean-green-cst.com/quarterKings/v1/updateScore";
+      // var http = new XMLHttpRequest;
+      // http.open("PUT", url, true);
+      // http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+      // http.onload = () => {document.body.innerHTML = `<h1>${http.status} ${http.responseText}</h1>`}
+      // http.send(JSON.stringify(
+      //    {
+      //       apiKey : 'hoeecvw2qg3fjmtf',
+      //       id : 44,
+      //       score : 6666,
+      //    }
+      // ));
+
+      
+   </script>
+</body>
+
+</html>

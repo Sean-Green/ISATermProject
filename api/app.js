@@ -402,7 +402,7 @@ app.delete('/quarterKings/v1/deleteApiKey', (req, res) => {
                     }
                 });
             } else {
-                res.status(400).send("Missing or incorrect fields")
+                res.status(401).send("ApiKey doesn't exist")
             }
         });
     });
@@ -449,7 +449,7 @@ app.put('/quarterKings/v1/updateDomain', (req, res) => {
                         console.log(`${err2}`)
                     } else {
                         console.log(`Update successful successful for apikey ${user.apiKey} with domain ${user.domain}`);
-                        res.status(204).send('Successful Domain Update');
+                        res.status(204).send(`Successful Domain Update`);
                         return;
                     }
                 });

@@ -118,14 +118,7 @@ paths:
         type: string
       responses:
         "200":
-          - name: results
-            type: array
-            description: every array item has apiKey and domain field
-            properties:
-              - name: apiKey
-                type: string
-              - name: domain
-                type: string
+          description: returns an array of apikey/domain objects
         "400":
           description: invalid input/object
         "401":
@@ -180,14 +173,7 @@ paths:
         type: string
       responses:
         "200":
-        - name: results
-          type: array
-          description: every array item has apiKey and domain field
-          properties:
-            - name: url
-              type: string
-            - name: hits
-              type: integer
+          description: returns and array of stat objects
         "400":
           description: Invalid object
         "401":
@@ -208,20 +194,7 @@ paths:
         type: string
       responses:
         "200":
-          - name: results
-            type: array
-            description: every array item has apiKey and domain field
-            properties:
-              - name: scoreID
-                type: integer
-              - name: scoreDate
-                type: string
-              - name: playerName
-                type: string
-              - name: apiKey
-                type: string
-              - name: score
-                type: float
+          description: returns an array of score objects
         "400":
           description: no api key provided
         "500":
@@ -277,11 +250,16 @@ paths:
         description: The API key connected to the score you wish to delete
         required: true
         type: string
-      - name: id
+      - name: name
         in: body
-        description: The id connected to the score you wish to delete
+        description: user account name
         required: true
-        type: integer
+        type: string
+      - name: password
+        in: body
+        description: user account password
+        required: true
+        type: string
       responses:
         "204":
           description: OK
@@ -311,7 +289,7 @@ paths:
         type: string
       - name: domain
         in: body
-        description: The domain connected to the score you wish to delete
+        description: The domain connected to the score you wish to delete minus the https://
         required: true
         type: string
       responses:
