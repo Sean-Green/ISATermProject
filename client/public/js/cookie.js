@@ -1,3 +1,5 @@
+let apiKey = JSON.parse(localStorage.getItem("userInfo")).cookieApi;
+
 let scoreCont = document.getElementById("score");
 let submitBtn = document.getElementById("submitBtn");
 let coin = document.getElementById("clickable");
@@ -11,7 +13,7 @@ function coinClick() {
 
 function submitScore() {
     let username = usernameInput.value.trim();
-
+    console.log()
     if(username == ""){
         username = "anonymous"
     }
@@ -23,20 +25,18 @@ function submitScore() {
     http.send(JSON.stringify(
        {
           name : username, 
-          apiKey : '0123456789abcdef',
+          apiKey : apiKey,
           score : parseInt(scoreCont.innerHTML)
        }
     ));
     scoreCont.innerHTML = "0";
-    loadLeaderboard();
-
+    http.onload = () => {loadLeaderboard();};
 }
-
 
 function loadLeaderboard() {
     let completeList = [];
     let entryList = [];
-    const url = "https://sean-green-cst.com/quarterKings/v1/getScores?api=0123456789abcdef";
+    const url = "https://sean-green-cst.com/quarterKings/v1/getScores?api=" + apiKey;
     var http = new XMLHttpRequest;
     http.open("GET", url, true);
     http.send( null );

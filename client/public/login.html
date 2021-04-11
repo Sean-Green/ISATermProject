@@ -14,14 +14,13 @@
          </div>
          <div id="loginCont">
             <div class="input-group mb-3">
-               <input id="userInput" type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
+               <input id="userInput" type="email" class="form-control" placeholder="Email" aria-label="email" aria-describedby="basic-addon1" required>
              </div>
-             
              <div class="input-group mb-3">
-               <input id="passInput" type="text" class="form-control" placeholder="Password" aria-label="Password" aria-describedby="basic-addon1">
+               <input id="passInput" type="password" class="form-control" placeholder="Password" aria-label="Password" aria-describedby="basic-addon1">
             </div>
-            <button id="loginBtn" type="button" class="btn btn-primary">Login</button>
-            <button  id="signinBtn" type="button" class="btn btn-primary">SignUp</button>
+            <button type="submit" id="loginBtn" class="btn btn-primary">Login</button>
+            <button type="submit" id="signinBtn"  class="btn btn-primary">SignUp</button>
             <div id="errorLogin"> <p>Invalid Username/Password <br> try again or Sign up</p> </div>
          </div>
       </div>
