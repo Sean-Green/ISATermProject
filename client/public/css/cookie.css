@@ -1,0 +1,12 @@
+.gameArea{
+    background-color: blue;
+}
+.btnScoreCont{
+    background-color: brown;
+}
+#clickable {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 40%;
+}

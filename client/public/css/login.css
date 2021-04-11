@@ -20,3 +20,7 @@ body {
     width: 100%;
     align-content: center;
 }
+
+#errorLogin {
+    display: none;
+}
