@@ -4,3 +4,23 @@
 .score {
     width: 100px;
 }
+
+.entries{
+    
+}
+
+
+.card{
+    margin-top: 10;
+    margin-bottom: 10;
+}
+.main {
+    margin: auto;
+    width: 75%;
+}
+
+@media only screen and (max-width: 800px) {
+    .main {
+        width: 100%;
+    }
+}

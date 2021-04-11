@@ -9,7 +9,7 @@
    <body>
       <div id="main">
            <!--Navbar-->
-           <nav class="navbar navbar-light light-blue lighten-4">
+           <nav class="navbar navbar-dark bg-secondary">
 
             <!-- Navbar brand -->
             <a class="navbar-brand" href="#">Quarter Kings</a>
@@ -36,6 +36,9 @@
                     <a class="nav-link" href="./cookieAdmin.html">Example Game Admin</a>
                   </li>
                   <li class="nav-item">
+                    <a class="nav-link" href="./adminLogin.html">Employees Admin</a>
+                  </li>
+                  <li class="nav-item">
                       <a class="nav-link" href="./login.html">Logout</a>
                     </li>
                 </ul>
@@ -48,20 +51,32 @@
           <!--/.Navbar-->
       <div class="main">
         <div class="gameArea">
+          <button data-toggle="collapse" data-target="#demo" class="btn btn-primary">How To Play</button>
+
+          <div id="demo" class="collapse">
+          <p>Welcome to the QuarterKings example game! <br> The objective of the game is to click the quarter in the center of your screen as many times as possible. <br> 
+            When you're done scoring points, enter your name and press the 'Submit Score' button to send your score to the leaderboard. <br> If you want to edit or delete entries from the leaderboard navigate to the Example Game Admin in the drop down tab above.</p>
+          </div>
+            <div class='card'>
             <div class="coinCont">
                 <img id="clickable" src="./images/coin.jpg" alt="coin image" />
             </div>
+            </div>
+            <div class='card text-center'>
             <div class="btnScoreCont">
-                <p id="score">0</p>
+                <p>Score: <span id="score">0</span></p>
                 <div class="input-group mb-3">
                     <input id="userName" type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
                   </div>
                 <button id="submitBtn" type="button" class="btn btn-primary">Submit Score</button>
             </div>
         </div>
+      </div>
+      <div class='card' id="leaderboard">
+        <h5>Leaderboard</h5>
         <div class="leaderboardArea">
         </div>
-
+    </div>
       </div>
       
       <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>

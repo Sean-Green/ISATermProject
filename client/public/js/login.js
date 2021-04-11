@@ -18,14 +18,14 @@
         pass = pass.hashCode();
         if(validateEmail(user)){ 
         if(user && pass){
-            const url = "http://sean-green-cst.com/quarterKings/v1/signup";
+            const url = "https://www.sean-green-cst.com/quarterKings/v1/signup";
             var http = new XMLHttpRequest;
             http.open("POST", url, true);
             http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
             http.send(JSON.stringify({name : user, password : pass}));
             http.onload = () =>{ if(http.status == 201){
                 let domain = "https://www.johnnyscott.ca"
-                const url = "http://sean-green-cst.com/quarterKings/v1/generate";
+                const url = "https://www.sean-green-cst.com/quarterKings/v1/generate";
                 http.open("POST", url, true);
                 http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
                 http.send(JSON.stringify({name : user, password : pass, domain: domain}));
@@ -52,7 +52,7 @@
         pass = pass.hashCode();
         if(validateEmail(user)){ 
         if(user && pass){
-            const url = "http://sean-green-cst.com/quarterKings/v1/login";
+            const url = "https://www.sean-green-cst.com/quarterKings/v1/login";
             var http = new XMLHttpRequest;
             http.open("POST", url, true);
             http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");

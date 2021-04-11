@@ -1,15 +1,16 @@
 function createKeyContainer(domain, key){
     //add code if domain and key are null create api from server
-    let element = "<div id='" + key + "'>" +
+    let element = "<div class='card Mkey' id='" + key + "'>" +
     "<div class='input-group mb-3'>" + 
       "<div class='input-group-prepend'>" +
         "<span class='input-group-text' id='basic-addon3'>https://</span>" +
       "</div>" +
       "<input id='domain"+key+"' type='text' class='form-control' id='basic-url' aria-describedby='basic-addon3' value=" + domain + ">" + 
     "</div>" +
-    "<div><p id='key" +key+ "'>" + key + "</p><button id='copyBtn" +key+ "' type='button' class='btn btn-primary' onclick='CopyAPI(this)'>Copy</button></div>" +
-    "<button id='deleteBtn" + key +"'  type='button' class='btn btn-primary' onclick='DeleteAPI(this)'>DELETE</button>" +
-    "<button id='saveBtn" + key +"' type='button' class='btn btn-primary' onclick='SaveDomain(this)'>SAVE</button>" +
+    "<div><p>API Key: <span id='key" +key+ "' class='apiKey'>" + key + "</span></p></div>" +
+    "<div class='btn-group' role='group' aria-label='Basic example'><button id='copyBtn" +key+ "' type='button' class='btn btn-primary  btn-sm'"  +
+    "onclick='CopyAPI(this)'>Copy API Key</button> <button id='deleteBtn" + key +"'  type='button' class='btn btn-warning  btn-sm' onclick='DeleteAPI(this)'>Delete API Key</button>" +
+    "<button id='saveBtn" + key +"' type='button' class='btn btn-primary  btn-sm' onclick='SaveDomain(this)'>Update domain</button> </div>" +
  "</div>"
     $("#apiDisplay").append(element);
     console.log("this is running")
@@ -22,7 +23,7 @@ function GenerateAPI(){
     document.getElementById("domain").value = "";
     userInfo = JSON.parse(userInfo);
     if(userInfo.name != "" && userInfo.password != "" && domain){
-    const url = "http://sean-green-cst.com/quarterKings/v1/generate";
+    const url = "https://www.sean-green-cst.com/quarterKings/v1/generate";
     var http = new XMLHttpRequest;
     http.open("POST", url, true);
     http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
@@ -41,7 +42,7 @@ function loadExistingAPIKeys() {
   $("#apiDisplay").empty();
   let userInfo = localStorage.getItem("userInfo");
   userInfo = JSON.parse(userInfo);
-  const url = "http://sean-green-cst.com/quarterKings/v1/getKeys";
+  const url = "https://www.sean-green-cst.com/quarterKings/v1/getKeys";
   var http = new XMLHttpRequest;
   http.open("POST", url, true);
   http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
@@ -65,7 +66,7 @@ function DeleteAPI(button){
     userInfo = JSON.parse(userInfo);
     let key = button.id.substring(9);
     console.log(key)
-    const url = "http://sean-green-cst.com/quarterKings/v1/deleteApiKey";
+    const url = "https://www.sean-green-cst.com/quarterKings/v1/deleteApiKey";
     var http = new XMLHttpRequest;
     http.open("DELETE", url, true);
     http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
@@ -81,7 +82,7 @@ function SaveDomain(button){
     let userInfo = localStorage.getItem("userInfo");
     userInfo = JSON.parse(userInfo);
     let domain = "https://" + document.getElementById("domain" + key).value;
-    const url = "http://sean-green-cst.com/quarterKings/v1/updateDomain";
+    const url = "https://www.sean-green-cst.com/quarterKings/v1/updateDomain";
     var http = new XMLHttpRequest;
     http.open("PUT", url, true);
     http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");

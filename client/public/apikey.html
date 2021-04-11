@@ -9,7 +9,7 @@
    <body>
       <div id="main">
           <!--Navbar-->
-        <nav class="navbar navbar-light light-blue lighten-4">
+        <nav class="navbar navbar navbar-dark bg-secondary">
 
     <!-- Navbar brand -->
     <a class="navbar-brand" href="#">Quarter Kings</a>
@@ -36,6 +36,9 @@
           <a class="nav-link" href="./cookieAdmin.html">Example Game Admin</a>
         </li>
         <li class="nav-item">
+          <a class="nav-link" href="./adminLogin.html">Employees Admin</a>
+        </li>
+        <li class="nav-item">
             <a class="nav-link" href="./login.html">Logout</a>
           </li>
       </ul>
@@ -47,17 +50,22 @@
   </nav>
   <!--/.Navbar-->
       <div class="container main-con">
+        <h3>API Keys</h3>
         <div id="apiDisplay"></div>
+        <div class="card" style="width: 100%;">
          <div id="apiGenerate">
             <div class="input-group mb-3">
               <div class="input-group-prepend">
                 <span class="input-group-text" id="basic-addon3">https://</span>
               </div>
-              <input id="domain" type="text" class="form-control" id="basic-url" aria-describedby="basic-addon3">
+              <input id="domain" type="text" class="form-control" id="basic-url" aria-describedby="basic-addon3" placeholder="www.YourDomainHere.ca">
             </div>
-            <button id="generateBtn" type="button" class="btn btn-primary">Generate Key</button>
+            <div class='btn-group' role='group' aria-label='Basic example'>
+            <button id="generateBtn" type="button" class="btn btn-primary btn-sm">Generate Key</button>
+          </div>
          </div>
       </div>
+    </div>
       </div>
       
       <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>

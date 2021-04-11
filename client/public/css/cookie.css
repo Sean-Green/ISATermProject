@@ -1,9 +1,35 @@
 .gameArea{
-    background-color: blue;
+    margin: auto;
+    width: 50%;
 }
-.btnScoreCont{
-    background-color: brown;
+
+#leaderboard {
+    margin:auto;
+    width: 50%;
+    overflow-y: scroll;
 }
+
+.main {
+    padding-top: 10;
+}
+
+span {
+    font-size: 20;
+}
+
+@media only screen and (max-width: 800px) {
+    .gameArea {
+        width: 100%;
+    }    
+    #leaderboard {
+        width: 100%;
+    }
+}
+
+.navbar-custom {
+    background-color: lightgreen;
+}
+
 #clickable {
     display: block;
     margin-left: auto;

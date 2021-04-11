@@ -10,17 +10,25 @@ body {
 }
 
 #loginCont {
+    margin: auto;
     padding: 10;
-    width: 100%;
-    align-items: flex-start;
+    width: 75%;
+    align-items: center;
     justify-content: center;
 }
 
 #logoCont {
-    width: 100%;
+    padding-top: 100;
+    margin: auto;
+    width: 50%;
     align-content: center;
+    justify-content: center;
 }
 
 #errorLogin {
     display: none;
+}
+.img-thumbnail {
+    width: 500px;
+    height: 500px;
 }

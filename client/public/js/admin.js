@@ -1,15 +1,16 @@
-const url = "https://sean-green-cst.com/quarterKings/v1/stats"; 
+const url = "https://www.sean-green-cst.com/quarterKings/v1/stats"; 
 // const url = "http://localhost:3000/quarterKings/v1/stats"; 
 var http = new XMLHttpRequest;
 http.open("POST", url, true);
 http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-
+let statArea = document.getElementById("statArea")
 http.onload = () => {
    console.log(`${http.status} ${http.responseText}`);
    let rows = JSON.parse(http.response);
    // Money maker is right here
    rows.forEach(row => {
-      console.log(`url = ${row.url} hits = ${row.hits}`)
+      let newRow = "<div class='card text-center'id="+ row.url +"><p>" + row.url + ": " + row.hits + "</p></div>"
+      $('#statsdiv').append(newRow);
    })
    /////////////////////////////
 };

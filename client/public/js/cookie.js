@@ -17,7 +17,7 @@ function submitScore() {
     if(username == ""){
         username = "anonymous"
     }
-    const url = "http://sean-green-cst.com/quarterKings/v1/score"; 
+    const url = "https://www.sean-green-cst.com/quarterKings/v1/score"; 
     var http = new XMLHttpRequest;
     http.open("POST", url, true);
     http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
@@ -36,7 +36,7 @@ function submitScore() {
 function loadLeaderboard() {
     let completeList = [];
     let entryList = [];
-    const url = "https://sean-green-cst.com/quarterKings/v1/getScores?api=" + apiKey;
+    const url = "https://www.sean-green-cst.com/quarterKings/v1/getScores?api=" + apiKey;
     var http = new XMLHttpRequest;
     http.open("GET", url, true);
     http.send( null );
@@ -61,9 +61,9 @@ function populateLeaderboard(list) {
         total = list.length;
     }
     for(let i = 0; i < total; i++){
-        let entry = "<div id='" + list[i].id + "'>" +
-       list[i].name + " " + list[i].score + "</div>"
-        $(".leaderboardArea").append(entry);
+        let entry = "<div class='card'><span class='ident'>Name: " +
+        list[i].name + "</span> <br><span class='ident'>Score: " + list[i].score  + "</span></div>"
+        $(".leaderboardArea").append(entry); 
         console.log("this is running")
     }
 }
